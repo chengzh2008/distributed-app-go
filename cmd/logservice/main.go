@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"disapp/log"
+	"disapp/registry"
 	"disapp/service"
 	"fmt"
 	stlog "log"
@@ -13,7 +14,7 @@ func main() {
 
 	host, port := "localhost", "4000"
 
-	ctx, err := service.Start(context.Background(), "Log Servcie", host, port, log.RegisterHandlers)
+	ctx, err := service.Start(context.Background(), registry.LogService, host, port, log.RegisterHandlers)
 	if err != nil {
 		stlog.Fatal(err)
 	}

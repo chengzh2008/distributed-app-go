@@ -2,19 +2,20 @@ package service
 
 import (
 	"context"
+	"disapp/registry"
 	"fmt"
 	"log"
 	"net/http"
 )
 
-func Start(ctx context.Context, serviceName, host, port string, registerHandlersFunc func()) (context.Context, error) {
+func Start(ctx context.Context, serviceName registry.ServiceName, host, port string, registerHandlersFunc func()) (context.Context, error) {
 	registerHandlersFunc()
 	ctx = startService(ctx, serviceName, host, port)
 
 	return ctx, nil
 }
 
-func startService(ctx context.Context, serviceName, host, port string) context.Context {
+func startService(ctx context.Context, serviceName registry.ServiceName, host, port string) context.Context {
 	ctx, cancel := context.WithCancel(ctx)
 
 	var srv http.Server
