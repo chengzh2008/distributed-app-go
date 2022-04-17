@@ -10,7 +10,13 @@ import (
 
 func main() {
 
-	ctx, err := service.Start(context.Background(), registry.RegService, "localhost", "4001", registry.RegisterHandlers)
+	host, port := "localhost", "3000"
+	r := registry.Registration{
+		ServiceName: registry.RegService,
+		ServiceURL:  fmt.Sprintf("http://%v:%v", host, port),
+	}
+	shouldRegister := false
+	ctx, err := service.Start(context.Background(), r, host, port, registry.RegisterHandlers, shouldRegister)
 	if err != nil {
 		stlog.Fatal(err)
 	}
